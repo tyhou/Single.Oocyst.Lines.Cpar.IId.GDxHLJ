@@ -44,3 +44,10 @@ RUN Rscript -e 'options(warn=2); BiocManager::install(c( \
 
 COPY postInstall /
 RUN /postInstall
+
+# Added for the GitHub release: packages used by the analysis scripts that are not
+# pulled in by the packages above (gridExtra in module 06; jsonlite, data.table and
+# RColorBrewer in module 11). Installed only if missing.
+RUN Rscript -e 'need <- c("gridExtra", "jsonlite", "data.table", "RColorBrewer"); \
+        new <- need[!need %in% rownames(installed.packages())]; \
+        if (length(new)) install.packages(new)'
