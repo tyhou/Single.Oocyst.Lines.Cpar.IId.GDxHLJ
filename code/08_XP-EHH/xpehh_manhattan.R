@@ -26,7 +26,7 @@ read_and_scan <- function(group, chr) {
   scan_hh(hap, discard_integration_at_border = FALSE)
 }
 
-scan_by_group <- list(high = NULL, low = NULL, all = NULL)
+scan_by_group <- list(high = NULL, low = NULL)
 
 for (chr in chromosomes) {
   for (group in names(scan_by_group)) {
@@ -34,11 +34,10 @@ for (chr in chromosomes) {
     scan_by_group[[group]] <- bind_rows(scan_by_group[[group]], chromosome_scan)
   }
   cat(sprintf(
-    "Completed Chr%d: high=%d, low=%d, all=%d markers\n",
+    "Completed Chr%d: high=%d, low=%d markers\n",
     chr,
     sum(scan_by_group$high$CHR == chr),
-    sum(scan_by_group$low$CHR == chr),
-    sum(scan_by_group$all$CHR == chr)
+    sum(scan_by_group$low$CHR == chr)
   ))
 }
 
@@ -54,16 +53,12 @@ invisible(Map(check_chromosomes, scan_by_group, names(scan_by_group)))
 # Calculate genome-wide iHS and XP-EHH
 ihs_high <- ihh2ihs(scan_by_group$high)[["ihs"]]
 ihs_low <- ihh2ihs(scan_by_group$low)[["ihs"]]
-ihs_all <- ihh2ihs(scan_by_group$all)[["ihs"]]
 
 xpehh_high_low <- ies2xpehh(scan_by_group$high, scan_by_group$low, "high", "low")
-xpehh_high_all <- ies2xpehh(scan_by_group$high, scan_by_group$all, "high", "all")
 
 write.table(ihs_high, file.path(output_dir, "ihs_high.txt"), sep = "\t", quote = FALSE, row.names = FALSE)
 write.table(ihs_low, file.path(output_dir, "ihs_low.txt"), sep = "\t", quote = FALSE, row.names = FALSE)
-write.table(ihs_all, file.path(output_dir, "ihs_all.txt"), sep = "\t", quote = FALSE, row.names = FALSE)
 write.table(xpehh_high_low, file.path(output_dir, "xpehh_high_vs_low.txt"), sep = "\t", quote = FALSE, row.names = FALSE)
-write.table(xpehh_high_all, file.path(output_dir, "xpehh_high_vs_all.txt"), sep = "\t", quote = FALSE, row.names = FALSE)
 
 # Annotate significant XP-EHH sites and selection direction
 logp_threshold <- -log10(p_threshold)
@@ -475,8 +470,8 @@ writeLines(report_lines, file.path(output_dir, "xpehh_analysis_report.txt"))
 
 # Save workspace
 save(
-  scan_by_group, ihs_high, ihs_low, ihs_all,
-  xpehh_high_low, xpehh_high_all, xpehh_annotated,
+  scan_by_group, ihs_high, ihs_low,
+  xpehh_high_low, xpehh_annotated,
   candidate_regions, genes, high_candidate_sites,
   site_gene_map, region_snp_genes, gene_summary, chromosome_layout,
   file = file.path(output_dir, "xpehh_analysis.RData")
