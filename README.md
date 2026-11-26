@@ -13,10 +13,17 @@ genomic figure and statistic in the paper.
 ## Run
 
 ```bash
-docker build -t cpar-revision environment/
+docker build --progress=plain -t cpar-revision environment/
 mkdir -p results
-docker run --rm -v "$PWD/data":/data -v "$PWD/code":/code -v "$PWD/results":/results \
-  cpar-revision bash /code/run.sh
+docker run --rm \
+  -v "$PWD":/workspace/capsule \
+  -v "$PWD/data":/data \
+  -v "$PWD/results":/results \
+  -u "$(id -u):$(id -g)" \
+  -e HOME=/workspace \
+  -w /workspace/capsule \
+  cpar-revision \
+  bash code/run 2>&1 | tee run.log
 ```
 
 Outputs are written to `results/<module>/`. Without Docker, install R 4.5.1 and the packages listed
