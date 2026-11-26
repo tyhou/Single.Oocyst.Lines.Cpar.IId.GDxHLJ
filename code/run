@@ -6,8 +6,6 @@ RESULTS_BASE="$HOME/capsule/results"
 
 scripts=(
     "01_Het_Fws/het_coverage_plot/het-cov.R"
-    "01_Het_Fws/fws/Fws-hap-SOLine-1391.R"
-    "01_Het_Fws/fws/Fws-hap-SOSS-1391.R"
     "02_PCA/F1SOSS_PCA_overlap_1391.R"
     "02_PCA/SOLine_PCA_overlap_1391.R"
     "02_PCA/SOLine_overlap_1391_PC_QC_heatmap.R"
