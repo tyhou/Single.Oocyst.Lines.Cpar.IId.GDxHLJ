@@ -25,8 +25,7 @@ and run `bash code/run.sh`.
 
 ## What each script does
 
-* `code/00_Trim_Mapping_SNP` — read trimming, mapping, depth and bcftools calls (cluster scripts)
-* `code/00_pipeline` — coverage and mapping statistics, Kraken2 composition, marker selection, Heterozygosity
+* `code/00_Trim_to_Variant_Pipeline` — read trimming, mapping, depth and bcftools calls
 * `code/01_Het_Fws` — heterozygosity, Fws, heterogeneity versus coverage, heterogeneity over time
 * `code/02_PCA` — PCA, scree plots, PC–covariate correlations
 * `code/03_Variant_distribution` — SNP and InDel density across the eight chromosomes
