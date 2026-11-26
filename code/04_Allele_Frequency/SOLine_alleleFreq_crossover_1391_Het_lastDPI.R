@@ -9,7 +9,7 @@ input_dir  <- "/data/04_Allele_Frequency/SOLine"
 output_dir <- "/results/04_Allele_Frequency/SOLine"
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 
-code_dir <- "/root/capsule/code/04_Allele_Frequency"
+code_dir <- "/workspace/capsule/code/04_Allele_Frequency"
 
 # Source shared functions
 source(file.path(code_dir, "allelefreq_functions_1391.R"))
