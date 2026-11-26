@@ -4,7 +4,7 @@ library(ggplot2)
 input_dir  <- "/data/04_Allele_Frequency/F1SOSS"
 output_dir <- "/results/04_Allele_Frequency/F1SOSS"
 
-code_dir   <- "/root/capsule/code/04_Allele_Frequency"
+code_dir   <- "/workspace/capsule/code/04_Allele_Frequency"
 
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 
